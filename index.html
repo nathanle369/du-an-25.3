@@ -1569,7 +1569,7 @@ footer strong { color:rgba(255,255,255,.5); }
           margin-left:6px;flex-shrink:0;"
           onmouseover="this.style.background='#E8F7F5'"
           onmouseout="this.style.background='none'">Copy</button>
-        <span id="vcb-amount-copy" style="display:none;">99000</span>
+        <span id="vcb-amount-copy" style="display:none;">1199000</span>
       </div>
       <div class="bank-row" style="border:none;">
         <span class="bank-k">Nội dung CK</span>
@@ -2007,7 +2007,7 @@ function buildQRUrl(ref) {
   const bank = 'vietcombank';
   const acc  = VCB_CONFIG.accountNo;
   const name = encodeURIComponent(VCB_CONFIG.accountName);
-  const amt  = '99000';
+  const amt  = '199000';
   const desc = encodeURIComponent(ref);
   // VietQR API — trả về ảnh QR PNG trực tiếp
   return `https://img.vietqr.io/image/${bank}-${acc}-compact2.png?amount=${amt}&addInfo=${desc}&accountName=${name}`;
