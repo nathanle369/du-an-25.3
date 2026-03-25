@@ -1485,26 +1485,6 @@ footer strong { color:rgba(255,255,255,.5); }
       border-radius:8px;border-left:3px solid var(--coral);"></div>
 
     <!-- DOWNLOAD NGAY (hiện khi điền đủ thông tin) -->
-   
-      <a id="direct-dl-btn" href="https://github.com/nathanle369/du-an-25.3/raw/main/ebook.pdf"
-        download="Claude-Mastery-2026.pdf"
-        style="display:flex;align-items:center;justify-content:center;gap:8px;
-          background:var(--teal);color:#fff;font-weight:700;font-size:.88rem;
-          padding:12px 20px;border-radius:100px;text-decoration:none;
-          transition:opacity .2s;width:100%;"
-        onmouseover="this.style.opacity='.85'"
-        onmouseout="this.style.opacity='1'">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2.5">
-          <path d="M12 2v14M5 9l7 7 7-7"/><path d="M3 20h18"/>
-        </svg>
-        Tải eBook Ngay — Miễn phí
-      </a>
-      <p style="font-size:.7rem;color:var(--muted);text-align:center;margin-top:8px;">
-        Hoặc tiếp tục bên dưới để thanh toán &amp; nhận bản quyền chính thức
-      </p>
-    </div>
-
     <button onclick="goStep2()" id="btn-to-step2" class="pm-btn-primary">
       Tiếp tục → Thanh toán 99.000đ
     </button>
@@ -2003,8 +1983,8 @@ window.addEventListener('scroll', () => {
 //  ⚠️ HƯỚNG DẪN CẤU HÌNH (chỉnh 3 dòng sau):
 // ════════════════════════════════════════════════════════════════
 const VCB_CONFIG = {
-  accountNo:   '0111000560086',          // ← Thay bằng STK VCB của bạn
-  accountName: 'LE HOANG HAI',        // ← Tên chủ TK (in hoa, không dấu)
+  accountNo:   '1234567890',          // ← Thay bằng STK VCB của bạn
+  accountName: 'NGUYEN VAN A',        // ← Tên chủ TK (in hoa, không dấu)
   // PDF link — sau khi upload lên Google Drive/Cloudflare, dán link trực tiếp vào đây:
   pdfUrl: 'https://github.com/nathanle369/du-an-25.3/raw/main/ebook.pdf',  // ← VD: https://drive.google.com/uc?id=XXXX
 };
@@ -2037,7 +2017,7 @@ function buildQRUrl(ref) {
 function isValidEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
 function isValidName(n)  { return n.trim().length >= 2; }
 
-// Live validate fields — show free download if all filled
+// Live validate — chỉ hiển thị trạng thái hợp lệ của input
 function liveValidate() {
   const name  = document.getElementById('pm-name')?.value || '';
   const email = document.getElementById('pm-email')?.value || '';
@@ -2048,19 +2028,8 @@ function liveValidate() {
   const ei = document.getElementById('pm-email');
   if (ni) ni.className = 'pm-input' + (name.length > 0 ? (nameOk  ? ' valid' : ' invalid') : '');
   if (ei) ei.className = 'pm-input' + (email.length > 0 ? (emailOk ? ' valid' : ' invalid') : '');
-
-  const box = document.getElementById('free-download-box');
-  const dlBtn = document.getElementById('direct-dl-btn');
-  if (box) {
-    if (nameOk && emailOk) {
-      box.style.display = 'block';
-      // Set PDF link
-      if (dlBtn) dlBtn.href = VCB_CONFIG.pdfUrl;
-    } else {
-      box.style.display = 'none';
-    }
-  }
 }
+
 
 // Step navigation
 function setStep(n) {
@@ -2211,8 +2180,6 @@ function openPayment() {
   });
   const errEl = document.getElementById('s1-err');
   if (errEl) errEl.style.display = 'none';
-  const freeBox = document.getElementById('free-download-box');
-  if (freeBox) freeBox.style.display = 'none';
 }
 
 function closePayment() {
