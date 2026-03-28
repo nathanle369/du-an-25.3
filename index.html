@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Làm Chủ Claude 2026 — Biến AI Thành Trợ Lý Điều Hành Của Bạn</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init('fTELs1_t0_1i1zoAx');</script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════
@@ -2136,7 +2137,25 @@ function manualCheck() {
     showSuccess();
   }, 1500);
 }
+function showSuccess() {
+  clearInterval(pollTimer);
 
+  const name  = document.getElementById('pm-name')?.value.trim() || '';
+  const email = document.getElementById('pm-email')?.value.trim() || '';
+
+  emailjs.send('service_x1vm2wt', 'template_o102vft', {
+    to_name:   name,
+    to_email:  email,
+    order_ref: orderRef,
+  }).then(() => console.log('Email sent!'))
+    .catch(err => console.error('Email error:', err));
+
+  const s3Email  = document.getElementById('s3-email');
+  const s3DlLink = document.getElementById('s3-dl-link');
+  if (s3Email)  s3Email.textContent = email;
+  if (s3DlLink) s3DlLink.href = VCB_CONFIG.pdfUrl;
+  setStep(3);
+}
 function showSuccess() {
   clearInterval(pollTimer);
   const email = document.getElementById('pm-email')?.value.trim() || '';
