@@ -2143,10 +2143,12 @@ function showSuccess() {
   const name  = document.getElementById('pm-name')?.value.trim() || '';
   const email = document.getElementById('pm-email')?.value.trim() || '';
 
+  // Gửi email chứa link ebook
   emailjs.send('service_mkp7v8c', 'template_o102vft', {
-    to_name:   name,
-    to_email:  email,
-    order_ref: orderRef,
+    to_name:    name,
+    to_email:   email,
+    order_ref:  orderRef,
+    ebook_link: VCB_CONFIG.pdfUrl,
   }).then(() => console.log('Email sent!'))
     .catch(err => console.error('Email error:', err));
 
@@ -2155,6 +2157,19 @@ function showSuccess() {
   if (s3Email)  s3Email.textContent = email;
   if (s3DlLink) s3DlLink.href = VCB_CONFIG.pdfUrl;
   setStep(3);
+}
+```
+
+Sau đó vào **EmailJS → template `template_o102vft`** → thêm biến `{{ebook_link}}` vào nội dung email:
+```
+Xin chào {{to_name}},
+
+🎉 Cảm ơn bạn đã mua ebook! Mã đơn hàng: {{order_ref}}
+
+📥 Link tải ebook của bạn:
+{{ebook_link}}
+
+Chúc bạn học tốt!
 }
 function showSuccess() {
   clearInterval(pollTimer);
